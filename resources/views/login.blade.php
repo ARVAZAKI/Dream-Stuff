@@ -23,7 +23,7 @@
                         <input type="password" class="form-control" name="password" id="password">
                         <input type="submit" class="btn btn-success mt-2" value="Login">
                     </form>
-                    <p>tidak punya akun? <a href="/register">Register</a>
+                    <p class="mt-2">belum punya akun? <a href="/register">Register</a>
                     </p>
                 </div>
             </div>

@@ -12,6 +12,15 @@
             <div class="card shadow-lg">
                 <div class="card-header text-center text-white bg-primary">Form Register</div>
                 <div class="card-body">
+                  @if($errors->any())
+                    <div class="alert alert-danger">
+                      <ul>
+                        @foreach ($errors->all() as $error) 
+                            <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                    @endif
                     <form action="{{route('register')}}" method="post">
                         @csrf
                         <label for="name" class="form-label">name</label>
@@ -22,6 +31,7 @@
                         <input type="password" class="form-control" name="password" id="password">
                         <input type="submit" class="btn btn-success mt-2" value="Register">
                     </form>
+                    <p class="mt-2">sudah punya akun? <a href="/login">Login</a>
                 </div>
             </div>
         </div>
