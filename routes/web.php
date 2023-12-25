@@ -20,7 +20,9 @@ use App\Http\Controllers\RegisterController;
 Route::get('/',[MainController::class, "index"])->middleware('auth');
 Route::post('/', [MainController::class, "addStuff"])->name('addStuff');
 Route::get('/delete/{kode}',[MainController::class, "deleteStuff"])->name('deleteStuff');
+
 Route::put('/add/{kode}',[MainController::class, "tambahPemasukan"])->name('pemasukan');
+Route::get('/add/{kode}',[MainController::class, "addPemasukan"])->name('pemasukan.add');
 
 Route::get('/login', [LoginController::class, "index"])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, "login"])->middleware('guest');

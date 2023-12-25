@@ -11,8 +11,9 @@ use App\Http\Requests\addStuffRequest;
 class MainController extends Controller
 {
     public function index(){
-        $stuff = Stuff::with('user')->where('users_id', Auth::user()->id)->get();
-        return view('dreamstuff',compact('stuff'));
+        $stuff = Stuff::where('users_id', Auth::user()->id)->get();
+        $kode = Stuff::all();
+        return view('dreamstuff',compact('stuff','kode'));
     }
     public function addStuff(addStuffRequest $request){
         $imageName = '';
@@ -31,18 +32,24 @@ class MainController extends Controller
             'uang_terkumpul' => 0,
             'users_id' => Auth::user()->id
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('message','barang berhasil ditambahkan...');
     }
     public function deleteStuff($kode){
-        Stuff::where('kode_barang', $kode)->firstOrFail()->delete();
-        return redirect()->back();
+        $stuff = Stuff::with('user')->where('kode_barang', $kode)->firstOrFail()->delete();
+        return redirect()->back()->with('message','barang berhasil dihapus...');
     }
     public function tambahPemasukan(Request $request, $kode){
-        $uang_terkumpul = Stuff::with('user')->where('kode_barang',$kode)->get('uang_terkumpul');
-        $uang_terkumpul += $request->uang_masuk;
         $stuff = Stuff::where('kode_barang',$kode)->firstOrFail();
-        $stuff->uang_terkumpul = $uang_terkumpul;
+        $stuff->uang_terkumpul += $request->uang_masuk;
         $stuff->save();
-        return redirect()->back();
+        if($stuff->uang_terkumpul >= $stuff->harga){
+            Stuff::where('kode_barang',$kode)->firstOrFail()->delete();
+            return redirect('/')->with('message','barang anda sudah tercapai...');
+        }
+        return redirect('/');
+    }
+    public function addPemasukan($kode){
+        $stuff = Stuff::where('kode_barang',$kode)->firstOrFail();
+        return view('pemasukan', compact('stuff'));
     }
 }
