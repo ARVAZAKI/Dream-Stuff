@@ -33,7 +33,7 @@
             <p class="card-text">Harga : {{ number_format($item->harga)}}</p>
             <p class="card-text">Uang terkumpul : {{ number_format($item->uang_terkumpul)}}</p>
             <a href="{{route('pemasukan', $item->kode_barang)}}" class="btn btn-sm btn-success">+</a>
-            <a href="" class="btn btn-sm btn-warning">-</a>
+            <a href="{{route('pengeluaran', $item->kode_barang)}}" class="btn btn-sm btn-warning">-</a>
             <a href="{{route('deleteStuff', $item->kode_barang)}}" class="btn btn-sm btn-danger">Delete</a>
           </div>
     </div>

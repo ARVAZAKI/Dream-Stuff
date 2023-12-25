@@ -24,6 +24,9 @@ Route::get('/delete/{kode}',[MainController::class, "deleteStuff"])->name('delet
 Route::put('/add/{kode}',[MainController::class, "tambahPemasukan"])->name('pemasukan');
 Route::get('/add/{kode}',[MainController::class, "addPemasukan"])->name('pemasukan.add');
 
+Route::get('/minus/{kode}',[MainController::class, "kurangPemasukan"])->name('pengeluaran');
+Route::put('/minus/{kode}', [MainController::class, "minusPemasukan"])->name('pengeluaran.minus');
+
 Route::get('/login', [LoginController::class, "index"])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, "login"])->middleware('guest');
 

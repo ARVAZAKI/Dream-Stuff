@@ -52,4 +52,14 @@ class MainController extends Controller
         $stuff = Stuff::where('kode_barang',$kode)->firstOrFail();
         return view('pemasukan', compact('stuff'));
     }
+    public function kurangPemasukan($kode){
+        $stuff = Stuff::where('kode_barang',$kode)->firstOrFail();
+        return view('pengeluaran', compact('stuff'));
+    }
+    public function minusPemasukan(Request $request, $kode){
+        $stuff = Stuff::where('kode_barang',$kode)->firstOrFail();
+        $stuff->uang_terkumpul -= $request->uang_keluar;
+        $stuff->save();
+        return redirect('/');
+    }
 }
